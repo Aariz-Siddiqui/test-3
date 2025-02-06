@@ -1,10 +1,11 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const app =  express();
 const authRouter = require('./router/auth-router');
 const authContact = require("./router/contact-router");
 const authService = require("./router/service-router");
 const adminRouter = require("./router/admin-router");
+const homeController = require("./controllers/home-controller")
 const connectdb = require('./utils/db');
 const errorMiddleware = require("./middlewares/error-middleware");
 const cors = require("cors");
@@ -17,6 +18,7 @@ const corsOption = { //to let our browser know that we have hosted our frontend 
 app.use(cors(corsOption)); //
 
 app.use(express.json());
+app.use("/",homeController);
 app.use("/api/auth",authRouter); //this means any request at the path "localhost:8000/api/auth" will be handled by auth-router i.e(express router0)
 app.use("/api",authContact);
 app.use("/data",authService);
